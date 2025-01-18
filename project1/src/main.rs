@@ -1,6 +1,6 @@
 use rand::Rng;
 use csv::ReaderBuilder;
-use plotters::{data, prelude::*};
+use plotters::prelude::*;
 
 // Structure to represent an item in the knapsack problem
 #[derive(Debug, Clone)]
@@ -69,7 +69,7 @@ fn fitness(individual: &Vec<bool>, items: &Vec<Item>, max_capacity: u32) -> i64 
 }
 
 // Tournament selection
-fn tournament_selection(population: &Vec<Vec<bool>>, fitness_values: &Vec<i64>, tournament_size: u32, items: &Vec<Item>, max_capacity: u32) -> Vec<Vec<bool>> {
+fn tournament_selection(population: &Vec<Vec<bool>>, tournament_size: u32, items: &Vec<Item>, max_capacity: u32) -> Vec<Vec<bool>> {
     let mut rng = rand::thread_rng();
     let mut selected_parents = Vec::new();
 
@@ -154,7 +154,7 @@ fn genetic_algorithm(init_population: Vec<Vec<bool>>, items: Vec<Item>, max_capa
         data.push((iteration, *fitness_values.iter().max().unwrap(), fitness_values.iter().sum::<i64>() / fitness_values.len() as i64, *fitness_values.iter().min().unwrap()));
 
         // Select parents
-        let selected_parents = tournament_selection(&population, &fitness_values, 5, &items, max_capacity);
+        let selected_parents = tournament_selection(&population, 5, &items, max_capacity);
 
         // Generate offspring
         let mut offspring = Vec::new();
